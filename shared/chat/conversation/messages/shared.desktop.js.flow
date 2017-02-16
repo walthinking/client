@@ -1,5 +1,5 @@
 // @flow
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import * as Constants from '../../../constants/chat'
 import type {FollowingMap, MetaDataMap} from '../../../constants/chat'
 
@@ -18,4 +18,4 @@ export type Props = {
   metaDataMap: MetaDataMap,
 }
 
-export default class MessageComponent extends PureComponent<void, Props, void> { }
+export default class MessageComponent extends Component<void, Props, void> { }

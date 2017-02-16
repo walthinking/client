@@ -5,6 +5,7 @@ import {globalStyles, globalColors} from '../../../styles'
 import MessageComponent from './shared.desktop'
 
 import type {Props} from './text'
+import type {Props as FooProps} from './shared.desktop.js.flow'
 import type {TextMessage} from '../../../constants/chat'
 
 const MessageText = ({message}: {message: TextMessage}) => {
@@ -19,12 +20,14 @@ const MessageText = ({message}: {message: TextMessage}) => {
   }
 }
 
-export default class MessageTextComponent extends PureComponent<void, Props & {onIconClick: (event: any) => void}, void> {
+export default class MessageTextComponent extends PureComponent<void, Props & {onIconClick: (event: any) => void} & {children: any}, void> {
   render () {
     const {message} = this.props
 
+    const foo: FooProps = this.props
+
     return (
-      <MessageComponent {...this.props}>
+      <MessageComponent {...foo}>
         <MessageText message={message} />
         {message.editedCount > 0 && <Text type='BodySmall' style={editedStyle}>EDITED</Text>}
       </MessageComponent>
