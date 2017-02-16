@@ -8,20 +8,7 @@ import {globalStyles, globalMargins, globalColors} from '../../../styles'
 import {withHandlers} from 'recompose'
 
 import type {FollowingMap, MetaDataMap} from '../../../constants/chat'
-
-type Props = {
-  includeHeader: boolean,
-  isFirstNewMessage: boolean,
-  onRetry: () => void,
-  onAction: (message: Constants.ServerMessage, event: any) => void,
-  style: Object,
-  isSelected: boolean,
-  children: React$Element<*>,
-  message: Constants.TextMessage | Constants.AttachmentMessage,
-  you: string,
-  followingMap: FollowingMap,
-  metaDataMap: MetaDataMap,
-}
+import type {Props} from './shared.desktop.js.flow'
 
 const marginColor = (user: string, you: string, followingMap: FollowingMap, metaDataMap: MetaDataMap) => {
   if (user === you) {
@@ -50,10 +37,8 @@ const Retry = ({onRetry}: {onRetry: () => void}) => (
   </div>
 )
 
-type MessageProps = Props & {onIconClick: (event: any) => void}
-
-class _MessageComponent extends PureComponent<void, MessageProps, void> {
-  shouldComponentUpdate (nextProps: MessageProps) {
+class _MessageComponent extends PureComponent<void, Props, void> {
+  shouldComponentUpdate (nextProps: Props) {
     return !shallowEqual(this.props, nextProps, (obj, oth, key) => {
       if (key === 'style') {
         return shallowEqual(obj, oth)
@@ -150,11 +135,4 @@ const _avatarStyle = {
   marginRight: globalMargins.tiny,
 }
 
-export default withHandlers({
-  onIconClick: (props: Props) => event => {
-    props.onAction(props.message, event)
-  },
-  onRetry: (props: Props) => () => {
-    props.message.outboxID && props.onRetry(props.message.outboxID)
-  },
-})(_MessageComponent)
+export default _MessageComponent

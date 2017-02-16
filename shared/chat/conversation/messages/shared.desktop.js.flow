@@ -1,0 +1,21 @@
+// @flow
+import React, {PureComponent} from 'react'
+import * as Constants from '../../../constants/chat'
+import type {FollowingMap, MetaDataMap} from '../../../constants/chat'
+
+export type Props = {
+  includeHeader: boolean,
+  isFirstNewMessage: boolean,
+  onRetry: () => void,
+  onIconClick: () => void,
+  onAction: (message: Constants.ServerMessage, event: any) => void,
+  style: Object,
+  isSelected: boolean,
+  children: React$Element<*>,
+  message: Constants.TextMessage | Constants.AttachmentMessage,
+  you: string,
+  followingMap: FollowingMap,
+  metaDataMap: MetaDataMap,
+}
+
+export default class MessageComponent extends PureComponent<void, Props, void> { }
