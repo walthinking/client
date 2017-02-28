@@ -132,7 +132,6 @@ class Conversation extends Component<void, Props & EditLastHandlerProps, State> 
 
   render () {
     const {
-    // $FlowIssue with variants
       bannerMessage,
       emojiPickerOpen,
       firstNewMessageID,
