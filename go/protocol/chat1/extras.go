@@ -208,8 +208,24 @@ func (o OutboxID) Eq(r OutboxID) bool {
 	return bytes.Equal(o, r)
 }
 
+// Compare pointers by value, not address.
+func (o *OutboxID) Eq2(r *OutboxID) bool {
+	if o != nil && r != nil {
+		return o.Eq(*r)
+	}
+	return (o == nil) && (r == nil)
+}
+
 func (o OutboxID) String() string {
 	return hex.EncodeToString(o)
+}
+
+// Compare pointers by value, not address.
+func (o *OutboxInfo) Eq2(r *OutboxInfo) bool {
+	if o != nil && r != nil {
+		return *o == *r
+	}
+	return (o == nil) && (r == nil)
 }
 
 func (p MessagePreviousPointer) Eq(other MessagePreviousPointer) bool {
@@ -383,6 +399,18 @@ func ConvertMessageBodyV1ToV2(v1 MessageBodyV1) (MessageBody, error) {
 	return MessageBody{}, fmt.Errorf("ConvertMessageBodyV1ToV2: unhandled message type %v", t)
 }
 */
+
+func (a MerkleRoot) Eq(b MerkleRoot) bool {
+	return (a.Seqno == b.Seqno) && bytes.Equal(a.Hash, b.Hash)
+}
+
+// Compare pointers by value, not address.
+func (a *MerkleRoot) Eq2(b *MerkleRoot) bool {
+	if a != nil && b != nil {
+		return a.Eq(*b)
+	}
+	return (a == nil) && (b == nil)
+}
 
 func NewConversationErrorLocal(
 	message string,
